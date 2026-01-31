@@ -79,3 +79,20 @@ def graphToDict(A,compartmentList):
             jj +=1
             kdict[compR][compC] = A[ii,jj]
     return kdict
+
+def implementGraphStruct(flowK,compartmentList,structDef_Out,structDef_In):
+    for cptSource in structDef_Out.keys():
+        for cptDest in compartmentList:
+            if cptDest in structDef_Out[cptSource]:
+                flowK[cptSource][cptDest]=1.0
+    for cptSource in compartmentList:
+        for cptDest in structDef_In.keys():
+            if cptSource in structDef_In[cptDest]:
+                flowK[cptSource][cptDest]=1.0
+    return flowK
+
+def dictOfFxns(newDict):
+    for key1 in newDict.keys():
+        for key2 in newDict[key1].keys():
+            newDict[key1][key2] = lambda t,x: 0
+    return newDict
